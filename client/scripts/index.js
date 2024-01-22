@@ -49,9 +49,8 @@ function start(){
     leftExitBtn.addEventListener('click', () => {
         let client = new XMLHttpRequest();
         client.open('GET', '/exit');
+        client.addEventListener('loadend', () => window.close() );
         client.send();
-        window.location.assign('https://www.google.com.br');
-        window.close();
     } );
     
     if(document.getElementById('is-connected') !== null){
