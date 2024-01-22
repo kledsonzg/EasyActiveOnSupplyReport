@@ -1,0 +1,87 @@
+{
+    
+    "Campos": [
+        {
+            "Campo":"Entrega_Realizada",
+            "Tipo": "System.Boolean",
+            "Operadores": ["Todos", "="]
+        },
+        {
+            "Campo":"Urgente",
+            "Tipo": "System.Boolean",
+            "Operadores": ["Todos", "="]
+        },
+        {
+            "Campo":"Enviado_Xml",
+            "Tipo": "System.Boolean",
+            "Operadores": ["Todos", "="]
+        },
+        {
+            "Campo":"Pendente_Agendamento",
+            "Tipo": "System.Boolean",
+            "Operadores": ["Todos", "="]
+        },
+        {
+            "Campo":"Liberada",
+            "Tipo": "System.Boolean",
+            "Operadores": ["Todos", "="]
+        },
+        {
+            "Campo":"CTe_Vinculado",
+            "Tipo": "System.Boolean",
+            "Operadores": ["Todos", "="]
+        },
+        {
+            "Campo": "Data_Emissao",
+            "Tipo": "System.DateTime",
+            "Operadores": ["<", "<=", "=", ">=", ">"]
+        },
+        {
+            "Campo": "Data_Entrega",
+            "Tipo": "System.DateTime",
+            "Operadores": ["<", "<=", "=", ">=", ">"]
+        },
+        {
+            "Campo": "Volumes",
+            "Tipo": "System.Decimal",
+            "Operadores": ["<", "<=", "=", ">=", ">"]
+        },
+        {
+            "Campo": "Peso",
+            "Tipo": "System.Decimal",
+            "Operadores": ["<", "<=", "=", ">=", ">"]
+        },
+        {
+            "Campo": "Xml_ChaveNfe",
+            "Tipo": "System.String",
+            "Operadores": ["_%", "%_", "%", "In", "="]
+        },
+        {
+            "Campo": "Xml_Fatura",
+            "Tipo": "System.String",
+            "Operadores": ["_%", "%_", "%", "In", "="]
+        },
+        {
+            "Campo": "Numero",
+            "Tipo": "System.String",
+            "Operadores": ["In", "="]
+        },
+        {
+            "Campo": "Pedido",
+            "Tipo": "System.String",
+            "Operadores": ["_%", "%_", "%", "In", "="]
+        },
+        {
+            "Campo": "Destino.Cidade.Cidade_ID",
+            "Tipo": "System.Int64",
+            "regra": "BuscaCidade",
+            "Operadores": ["="]
+        },
+        {
+            "Campo": "Origem.Cidade.Cidade_ID",
+            "Tipo": "System.Int64",
+            "regra": "BuscaCidade",
+            "Operadores": ["="]
+        }
+    ]
+}

@@ -1,0 +1,56 @@
+<div id="content-container">
+    <div id="export-button-container">
+        <div id="export-button">
+            <img src="images/text-file.png" alt="">
+            <img class="invert-visibility" src="images/loading.gif" alt="">
+            <span>EXPORTAR</span>
+        </div>
+    </div>
+    <div id="filters-container">
+        <div id="filter-header">
+            <div class="filter">
+                <span>Campo</span>
+                <input list="campo-lista" id="input-campo">
+                <datalist id="campo-lista">
+                </datalist>
+                <datalist id="booleanos-lista">
+                    <option value="true"></option>
+                    <option value="false"></option>
+                </datalist>
+            </div>
+            <div class="filter">
+                <span>Operador</span>
+                <input list="operador-lista" size="1" id="input-operador">
+                <datalist id="operador-lista">
+                    <option value="_%"></option>
+                    <option value="%_"></option>
+                    <option value="%"></option>
+                    <option value="In"></option>
+                    <option value="<"></option>
+                    <option value=">"></option>
+                    <option value="<="></option>
+                    <option value=">="></option>
+                    <option value="="></option>
+                    <option value="Todos"></option>
+                </datalist>
+            </div>
+            <div class="filter">
+                <span>Top</span>
+                <input list="top-lista" size="1" id="input-top">
+                <datalist id="top-lista">
+                    <option value="50"></option>
+                    <option value="100"></option>
+                </datalist>
+            </div>
+            <div class="filter">
+                <span>Ano</span>
+                <input type="text" size="2" id="input-ano">
+            </div>
+            <div class="filter">
+                <span>Valor</span>
+                <input type="text" id="input-valor">
+            </div>
+            <div id="filter-button">+</div>
+        </div>
+    </div>
+</div>

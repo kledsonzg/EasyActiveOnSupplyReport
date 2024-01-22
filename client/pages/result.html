@@ -1,0 +1,189 @@
+<body>
+    <style id="result-styles">
+        @keyframes resultInputChanged {
+            0%{
+                background-color: white;
+            }
+            50%{
+                background-color: #2BD9FE;
+            }
+            100%{
+                background-color: white;
+            }
+        }
+        #result-background{
+            position: absolute;
+            width: 100%; height: 100%;
+            top: 0px; left: 0px;
+            background-color: #ffffffa5;
+            
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            z-index: 5;
+        }
+        #result-container{
+            position: relative;
+            width: 75%; height: 75%;
+    
+            border-radius: 10px;
+            background-color: #F3EEEA;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #result-container header{
+            position: relative;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            border-radius: 10px;
+            color: white;
+        }
+        #result-container h1{
+            position: relative;
+            width: 50%;
+        }
+        #result-close-button{
+            position: relative;
+            height: 50%; width: 5%;
+            border: 0px;
+            color: white;
+            background-color: #7D0A0A;
+        }
+        #result-close-button:hover{
+            height: 55%; width: 7.5%;
+            font-weight: bold;
+            background-color: #BF3131;
+            cursor: pointer;
+        }
+        #result-copy-button{
+            position: relative;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-wrap: nowrap;
+            flex-direction: row;
+            height: 50%; width: 25%;
+            background-color: #3AAED8;
+            border-radius: 10px;
+            font-size: 0.6rem;
+        }
+        #result-copy-button:hover{
+            top: -3px;
+            height: 50%; width: 25%;
+            background-color: #2BD9FE;
+            cursor: pointer;
+            border: white 1px solid;
+            border-radius: 0px;
+            font-weight: bolder;
+        }
+        #result-copy-button img{
+            position: relative;
+            height: 50%; width: 10%;
+        }
+        #result-copy-button span{
+            position: relative;
+            height: 50%; width: 75%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #result-content-input{
+            position: relative;
+            width: 75%; height: 70%;
+            top: 2.5%;
+            background-color: white;
+            resize: none;
+            white-space: nowrap;
+            tab-size: 8;
+        }
+        #result-selector-container{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            width: 100%; height: 15%;
+            border-bottom: #52AA5E 1px solid;
+        }
+        .result-selector{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-items: center;
+            border-right: #52AA5E 1px dashed;
+            justify-content: space-between;
+            text-align: center;
+            letter-spacing: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            flex-grow: 1;
+        }
+        .result-selector input:hover{
+            position: relative;
+            top: 1px;
+        }
+        .result-selector label{
+            max-width: 100%;
+        }
+        .result-output-changed{
+            animation-name: resultInputChanged;
+            animation-duration: 0.5s;
+            animation-direction: normal;
+        }
+    </style>
+    <div id="result-background">
+        <div id="result-container">
+            <header>
+                <h1>RESULTADO</h1>
+                <a id="result-copy-button" onclick="navigator.clipboard.writeText(document.getElementById('result-content-input').value ); document.getElementById('result-copy-span').innerHTML = 'texto copiado!'; setTimeout(() => { document.getElementById('result-copy-span').innerHTML = 'copiar conteudo'; }, 1000)">
+                    <img src="./images/copy.png" alt="">
+                    <span id="result-copy-span">COPIAR CONTEUDO</span>
+                </a>
+                <button id="result-close-button" onclick="document.getElementById('result-background').remove(); document.getElementById('result-styles').remove(); ">X</button>   
+            </header>
+            <div id="result-selector-container">
+                <div class="result-selector">
+                    <label for="result-selector-id">pagina </label>
+                    <label for="result-selector-id">de </label>
+                    <label for="result-selector-id">redirecionamento</label>
+                    <input type="checkbox" id="result-selector-id">
+                </div>
+                <div class="result-selector">
+                    <label for="result-selector-fiscalcode">NF</label>
+                    <input type="checkbox" id="result-selector-fiscalcode">
+                </div>
+                <div class="result-selector">
+                    <label for="result-selector-emissiondate">data </label>
+                    <label for="result-selector-emissiondate">de </label>
+                    <label for="result-selector-emissiondate">emissao</label>
+                    <input type="checkbox" id="result-selector-emissiondate">
+                </div>
+                <div class="result-selector">
+                    <label for="result-selector-client">destinatario</label>
+                    <input type="checkbox" id="result-selector-client">
+                </div>
+                <div class="result-selector">
+                    <label for="result-selector-previsiondate">data </label>
+                    <label for="result-selector-previsiondate">de </label>
+                    <label for="result-selector-previsiondate">previsao</label>
+                    <input type="checkbox" id="result-selector-previsiondate">
+                </div>
+                <div class="result-selector">
+                    <label for="result-selector-deliverydate">data </label>
+                    <label for="result-selector-deliverydate">de </label>
+                    <label for="result-selector-deliverydate">entrega</label>
+                    <input type="checkbox" id="result-selector-deliverydate">
+                </div>
+                <div class="result-selector">
+                    <label for="result-selector-deliverytype">tipo </label>
+                    <label for="result-selector-deliverytype">de </label>
+                    <label for="result-selector-deliverytype">frete</label>
+                    <input type="checkbox" id="result-selector-deliverytype">
+                </div>
+            </div>
+            <textarea type="text" id="result-content-input"></textarea>
+        </div>
+    </div>
+</body>
