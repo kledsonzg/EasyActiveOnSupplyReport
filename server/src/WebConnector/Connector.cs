@@ -1,5 +1,4 @@
 using System.Net;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 
@@ -22,11 +21,11 @@ namespace WebConnector
                 }
                 catch(Exception e)
                 {
-                    Console.WriteLine($"Ocorreu o seguinte erro ao fazer uma requisição para desligar o servidor: {e}");
+                    Program.PrintLine($"Ocorreu o seguinte erro ao fazer uma requisição para desligar o servidor: {e}");
                     return;
                 }
 
-                Console.WriteLine("Requisição HTTP interna de desligamento bem sucedida!");
+                Program.PrintLine("Requisição HTTP interna de desligamento bem sucedida!");
             } ) ).Start();
         }
         
@@ -34,7 +33,7 @@ namespace WebConnector
         {
             
             Program.Shutdown();
-            Console.WriteLine("Requisição de desligamento recebida! Desligando servidor...");
+            Program.PrintLine("Requisição de desligamento recebida! Desligando servidor...");
             context.Response.Close();
         }
 
@@ -91,10 +90,10 @@ namespace WebConnector
             request = new HttpRequestMessage(HttpMethod.Post, Urls.FISCALNOTES_URL);
             request.Headers.Add("Cookie", cookies);
             request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-            Console.WriteLine($"Contagem de NF's: {fiscalCodesCount}");
+            Program.PrintLine($"Contagem de NF's: {fiscalCodesCount}");
             response = client.Send(request);
 
-            Console.WriteLine($"Requisição de resultado enviado com o(s) corpo/filtro(s): {requestBody}");
+            Program.PrintLine($"Requisição de resultado enviado com o(s) corpo/filtro(s): {requestBody}");
             var resultContent = new StringContent($"<html><body>{response.Content.ReadAsStringAsync().Result}</body></html>");
             Handler.RespondRequest(context, resultContent.ReadAsByteArrayAsync().Result);
         }
@@ -105,7 +104,7 @@ namespace WebConnector
             var contextResponse = context.Response;
             if(contextUri == null)
             {
-                Console.WriteLine("Não foi possível prosseguir com a requisição de login. 'URI' é nulo.");
+                Program.PrintLine("Não foi possível prosseguir com a requisição de login. 'URI' é nulo.");
                 contextResponse.StatusCode = (int) HttpStatusCode.ExpectationFailed;
                 contextResponse.Close();
                 return;
@@ -138,18 +137,18 @@ namespace WebConnector
             }
             catch(Exception e)
             {
-                Console.WriteLine($"Ocorreu a seguinte exceção: {e}");
+                Program.PrintLine($"Ocorreu a seguinte exceção: {e}");
                 contextResponse.StatusCode = (int) HttpStatusCode.NotFound;
                 contextResponse.Close();
                 return;
             }
             
             var sessionID = response.Headers.GetValues("Set-Cookie").ToList().First(cookie => cookie.Contains("sessionID") );
-            //Console.WriteLine("sessionID: " + sessionID);
+            //Program.PrintLine("sessionID: " + sessionID);
             var username = GetUser(sessionID);
             var companyID = GetCompanyID(sessionID);
 
-            Console.WriteLine($"Logado(a) como '{username}'!");
+            Program.PrintLine($"Logado(a) como '{username}'!");
 
             client = new HttpClient();
             request = new HttpRequestMessage(HttpMethod.Post, Urls.LOGIN_URLS[1] );
@@ -170,7 +169,7 @@ namespace WebConnector
             var aspNet = response.Headers.GetValues("Set-Cookie").ToList().FirstOrDefault(cookie => cookie.Contains(".AspNet.ApplicationCookie"), "");
             if(aspNet == "")
             {
-                Console.WriteLine($"Ocorreu algum erro ao tentar fazer o login.");
+                Program.PrintLine($"Ocorreu algum erro ao tentar fazer o login.");
                 contextResponse.StatusCode = (int) HttpStatusCode.NotFound;
                 contextResponse.Close();
                 return;
@@ -206,7 +205,7 @@ namespace WebConnector
                 return toReturn;
             }
             catch(Exception e){
-                Console.WriteLine($"Ocorreu a seguinte exceção: {e}");
+                Program.PrintLine($"Ocorreu a seguinte exceção: {e}");
                 return "";
             }
         }

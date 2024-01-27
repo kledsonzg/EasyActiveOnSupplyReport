@@ -1,6 +1,4 @@
 using System.Net;
-using System.Text;
-using System.Text.Unicode;
 using WebConnector;
 
 internal static class Handler
@@ -12,7 +10,7 @@ internal static class Handler
         var response = context.Response;
         if(contextUri == null)
         {
-            Console.WriteLine("Não foi possível prosseguir com o tratamento de uma requisição. 'URI' é nulo.");
+            Program.PrintLine("Não foi possível prosseguir com o tratamento de uma requisição. 'URI' é nulo.");
             response.StatusCode = (int) HttpStatusCode.ExpectationFailed;
             response.Close();
             return;
@@ -32,7 +30,7 @@ internal static class Handler
             return;
         }
         
-        //Console.WriteLine(file);     
+        //Program.PrintLine(file);     
 
         RespondRequest(context, File.ReadAllBytes(file) );
     }
@@ -43,7 +41,7 @@ internal static class Handler
         var response = context.Response;
         if(contextUri == null)
         {
-            Console.WriteLine("Não foi possível prosseguir com o tratamento de uma requisição. 'URI' é nulo.");
+            Program.PrintLine("Não foi possível prosseguir com o tratamento de uma requisição. 'URI' é nulo.");
             response.StatusCode = (int) HttpStatusCode.ExpectationFailed;
             response.Close();
             return;
@@ -89,7 +87,7 @@ internal static class Handler
         }
         catch(Exception e)
         {
-            Console.WriteLine($"Ocorreu a seguinte exceção: {e}");
+            Program.PrintLine($"Ocorreu a seguinte exceção: {e}");
             if(ConnectionAlreadyClosed(context) )
                 return;
             
