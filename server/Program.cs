@@ -1,7 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Net;
-using System.Reflection;
-using System.Security.Principal;
 using WebConnector;
 
 public class Program
@@ -11,20 +9,22 @@ public class Program
     public static string clientFilesPath = "";
     public static void Main()
     {   
+        ShowStartingMessage();
+        
         var server = new HttpListener();
         server.Prefixes.Add("http://127.0.0.1:9090/");
 
         var executablePath = Environment.ProcessPath;
         if(executablePath == null)
         {
-            Console.WriteLine("Não foi possível encontrar o diretório deste programa.");
+            PrintLine("Não foi possível encontrar o diretório deste programa.");
             return;
         }
 
         var parentExeDirectoryInfo = Directory.GetParent(executablePath);
         if(parentExeDirectoryInfo == null)
         {
-            Console.WriteLine("Não foi possível encontrar o diretório pai do diretório do executável.");
+            PrintLine("Não foi possível encontrar o diretório pai do diretório do executável.");
             return;
         }
         var currentDirectory = parentExeDirectoryInfo.ToString();
@@ -36,17 +36,16 @@ public class Program
             var parentDirectoryInfo = Directory.GetParent(clientFilesPath);
             if(parentDirectoryInfo == null)
             {
-                Console.WriteLine("Não foi possível encontrar o diretório que contém os arquivos para a aplicação WEB.");
+                PrintLine("Não foi possível encontrar o diretório que contém os arquivos para a aplicação WEB.");
                 return;
             }
             clientFilesPath = parentDirectoryInfo.ToString();
         }
             
-            
-
+        
         clientFilesPath = Directory.GetDirectories(clientFilesPath).First(f => f.Contains("client") );
 
-        //Console.WriteLine(clientFilesPath);
+        //PrintLine(clientFilesPath);
 
         server.Start();
         OpenBrowser();
@@ -61,12 +60,12 @@ public class Program
                 }
                 catch(Exception e)
                 {
-                    Console.WriteLine($"Ocorreu o seguinte erro ao receber uma requisição: {e}");
+                    PrintLine($"Ocorreu o seguinte erro ao receber uma requisição: {e}");
                 }   
             }
 
             server.Stop();
-            Console.WriteLine("Servidor desligado com sucesso!");
+            PrintLine("Servidor desligado com sucesso!");
         } )  ).Start();
 
         
@@ -97,14 +96,14 @@ public class Program
 
         if(IsRunning() )
         {  
-            Console.WriteLine("Uma requisição de desligamento do servidor será enviada...");
+            PrintLine("Uma requisição de desligamento do servidor será enviada...");
             Connector.RequestServerShutdown();
         }
         
         while(server.IsListening)
             Thread.Sleep(1 * 1000);
 
-        Console.WriteLine("Interrompendo programa...");
+        PrintLine("Interrompendo programa...");
         return;
     }
 
@@ -119,11 +118,34 @@ public class Program
         }
         catch(Exception e)
         {
-            Console.WriteLine($"Houve o seguinte erro ao tentar abrir o navegador: {e}");
+            PrintLine($"Houve o seguinte erro ao tentar abrir o navegador: {e}");
         }
     }
 
+    public static void ShowStartingMessage()
+    {
+        for(int i = 0; i < 100; i ++)
+            Console.Write("-");
+
+        Console.WriteLine("\n\t\t\tEasy Activity OnSupply Report por KledsonZG");
+
+        for(int i = 0; i < 100; i ++)
+            Console.Write("-");
+        
+        Console.WriteLine();
+    }
     public static bool IsRunning() => running;
     public static void Shutdown() => running = false;
+
+    public static void PrintLine(string? value)
+    {
+        if(value == null)
+        {
+            Console.WriteLine();
+            return;
+        }
+        
+        Console.WriteLine($"{DateTime.Now.ToShortDateString()} - {DateTime.Now.ToLongTimeString()}: {value}");
+    }
 }
 
