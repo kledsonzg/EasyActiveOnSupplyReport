@@ -440,6 +440,9 @@ function getFixedDecimalValue(inputElement){
 }
 
 function onResultCheckBoxCheck(){
+    let output = '';
+    resultInput.value = '';
+
     let accptedColumnsIndexes = [0, 3, 4, 5, 6, 7, 8];
     let higherColumnLength = [0, 0, 0, 0, 0, 0, 0];
     let rows = Array.from(result.getElementsByTagName('tbody')[0].getElementsByTagName('tr') );
@@ -460,8 +463,7 @@ function onResultCheckBoxCheck(){
     for(let i = 0; i < resultCheckBoxes.length; i++){
         resultCheckBoxesValues[i] = resultCheckBoxes[i].checked;
     }
-
-    resultInput.value = '';
+    
     rows.forEach(row => {
         let columns = Array.from(row.children);
         // A cada linha, uma array será criada para armazenar o valor de cada coluna da linha atual.
@@ -507,16 +509,18 @@ function onResultCheckBoxCheck(){
                     stringRows[i][j] += ' ';
             }
 
-            resultInput.value += `${stringRows[i][j] }\t`;
+            output += `${stringRows[i][j] }\t`;
         }
         
-        // A cada iteração de linha, uma quebra de texto é inserida no input que representa o output.
-        resultInput.value += i < stringRows.length - 1 ? '\n' : '';
+        // A cada iteração de linha, uma quebra de texto é inserida no resultado.
+        output += i < stringRows.length - 1 ? '\n' : '';
     }
-    console.log(stringRows);
+
+    resultInput.value = output;
     if(resultInput.classList.contains('result-output-changed') )
         resultInput.classList.remove('result-output-changed');
 
+    // Timer para alterar a cor de fundo do output de resultado.
     setTimeout(() => resultInput.classList.add('result-output-changed'), 100);
 }
 
